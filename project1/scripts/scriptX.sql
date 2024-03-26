@@ -1,0 +1,9 @@
+CREATE TABLE xdocentes AS SELECT * FROM GTD10.docentes;
+
+CREATE TABLE xdsd AS SELECT * FROM GTD10.dsd;
+
+CREATE TABLE xtiposaula AS SELECT * FROM GTD10.tiposaula;
+
+CREATE TABLE xocorrencias AS SELECT * FROM GTD10.ocorrencias;
+
+CREATE TABLE xucs AS SELECT * FROM GTD10.ucs;
