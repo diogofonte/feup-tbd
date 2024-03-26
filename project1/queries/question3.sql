@@ -1,6 +1,6 @@
 -- x scenario:
 -- using NOT IN
-SELECT DISTINCT COUNT(xucs.codigo)
+SELECT xucs.codigo
 FROM xocorrencias
 LEFT JOIN xucs ON xocorrencias.codigo = xucs.codigo
 WHERE xocorrencias.ano_letivo = '2003/2004' 
@@ -31,7 +31,7 @@ WHERE xocorrencias.ano_letivo = '2003/2004' and code IS NULL
 
 -- y scenario:
 -- using NOT IN
-SELECT DISTINCT COUNT(yucs.codigo)
+SELECT DISTINCT yucs.codigo
 FROM yocorrencias
 LEFT JOIN yucs ON yocorrencias.codigo = yucs.codigo
 WHERE yocorrencias.ano_letivo = '2003/2004' 
@@ -62,7 +62,7 @@ WHERE yocorrencias.ano_letivo = '2003/2004' and code IS NULL
 
 -- z scenario:
 -- using NOT IN
-SELECT DISTINCT COUNT(zucs.codigo)
+SELECT DISTINCT zucs.codigo
 FROM zocorrencias
 LEFT JOIN zucs ON zocorrencias.codigo = zucs.codigo
 WHERE zocorrencias.ano_letivo = '2003/2004' 
