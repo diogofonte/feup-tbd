@@ -20,6 +20,15 @@ LEFT JOIN yucs ON yocorrencias.codigo = yucs.codigo
 WHERE yucs.curso = 233 AND yocorrencias.ano_letivo = '2004/2005'
 GROUP BY ytiposaula.tipo
 
+
+
+-- Only selects the planned classes
+SELECT ytiposaula.tipo, SUM(ytiposaula.turnos * ytiposaula.horas_turno)
+FROM ytiposaula
+LEFT JOIN yucs ON ytiposaula.codigo = yucs.codigo
+WHERE curso = 233 AND ytiposaula.ano_letivo = '2004/2005'
+GROUP BY ytiposaula.tipo;
+
 -- z scenario:
 
 SELECT SUM(zdsd.horas) AS Horas, ztiposaula.tipo

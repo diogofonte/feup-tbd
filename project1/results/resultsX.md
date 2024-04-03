@@ -17,6 +17,8 @@ All Rows fetched: 6 in 0,032 seconds -- Average time
 
 All Rows fetched: 3 in 0,019 seconds -- Average time
 
+
+QUestion might be wrong,because it shows classes that were given by the professors, instead of the classes planned
 ### Results:
 ![image1](images/ResultsXQuestion2.png)
 
@@ -63,7 +65,7 @@ All Rows fetched: 4 in 0,019 seconds -- Average time
 All Rows fetched: 4 in 0,025 seconds -- Average time
 
 ### Results:
-![image1](/images/ResultsXQuestion6.png)
+![image1](images/ResultsXQuestion6.png)
 
 ### ExplainPlan
 
