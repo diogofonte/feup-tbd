@@ -15,11 +15,8 @@ All Rows fetched: 6 in 0,032 seconds -- Average time
 
 ## Question 2 
 
-All Rows fetched: 3 in 0,019 seconds -- Average time
+All Rows fetched: 3 in 0,033 seconds -- Average time
 
-IN NEED OF CHANGE
-
-QUestion might be wrong,because it shows classes that were given by the professors, instead of the classes planned
 ### Results:
 ![image1](images/ResultsXQuestion2.png)
 

@@ -47,3 +47,12 @@ LEFT JOIN zocorrencias ON ztiposaula.codigo = zocorrencias.codigo AND ztiposaula
 LEFT JOIN zucs ON zocorrencias.codigo = zucs.codigo
 WHERE zucs.curso = 233 AND zocorrencias.ano_letivo = '2004/2005'
 GROUP BY ztiposaula.tipo
+
+
+
+-- Only selects the planned classes
+SELECT ztiposaula.tipo, SUM(ztiposaula.turnos * ztiposaula.horas_turno)
+FROM ztiposaula
+LEFT JOIN zucs ON ztiposaula.codigo = zucs.codigo
+WHERE curso = 233 AND ztiposaula.ano_letivo = '2004/2005'
+GROUP BY ztiposaula.tipo;
