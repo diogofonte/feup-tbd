@@ -17,6 +17,7 @@ All Rows fetched: 6 in 0,032 seconds -- Average time
 
 All Rows fetched: 3 in 0,019 seconds -- Average time
 
+IN NEED OF CHANGE
 
 QUestion might be wrong,because it shows classes that were given by the professors, instead of the classes planned
 ### Results:
@@ -29,7 +30,7 @@ QUestion might be wrong,because it shows classes that were given by the professo
 ## Question 3 
 
 ## A- Using NOT IN
-All Rows fetched: 139 in 0.051 seconds -- Average time
+All Rows fetched: 138 in 0.051 seconds -- Average time
 
 ### Results:
 ![image1](images/ResultsXQuestion3a.png)
