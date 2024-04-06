@@ -15,7 +15,7 @@ All Rows fetched: 6 in 0,032 seconds -- Average time
 
 ## Question 2 
 
-All Rows fetched: 3 in 0,033 seconds -- Average time
+All Rows fetched: 3 in 0,039 seconds -- Average time
 
 ### Results:
 ![image1](images/ResultsXQuestion2.png)
@@ -27,7 +27,7 @@ All Rows fetched: 3 in 0,033 seconds -- Average time
 ## Question 3 
 
 ## A- Using NOT IN
-All Rows fetched: 138 in 0.051 seconds -- Average time
+All Rows fetched: 138 in 0.102 seconds -- Average time
 
 ### Results:
 ![image1](images/ResultsXQuestion3a.png)
@@ -37,7 +37,7 @@ All Rows fetched: 138 in 0.051 seconds -- Average time
 ![image2](images/ExplainPlanXQuestion3a.png)
 
 ## B- Using EXTERNAL JOIN
-All Rows fetched: 138 in 0.034 seconds -- Average time
+All Rows fetched: 138 in 0.098 seconds -- Average time
 
 ### Results:
 ![image1](images/ResultsXQuestion3b.png)
@@ -48,7 +48,7 @@ All Rows fetched: 138 in 0.034 seconds -- Average time
 
 ## Question 4 
 
-All Rows fetched: 4 in 0,019 seconds -- Average time
+All Rows fetched: 4 in 0,035 seconds -- Average time
 
 ### Results:
 ![image1](images/ResultsXQuestion4.png)
@@ -60,7 +60,7 @@ All Rows fetched: 4 in 0,019 seconds -- Average time
 
 ## Question 6 
 
-All Rows fetched: 4 in 0,025 seconds -- Average time
+All Rows fetched: 4 in 0,046 seconds -- Average time
 
 ### Results:
 ![image1](images/ResultsXQuestion6.png)
