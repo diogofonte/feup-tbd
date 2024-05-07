@@ -1,0 +1,154 @@
+-- types
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE jobHistory_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE department_employees_tab_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE employee_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE department_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE job_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE location_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE country_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TYPE region_t FORCE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -4043 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+---------------------------
+-- tables
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_regions';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_countries';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_locations';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_jobs';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_employees';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_departments';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE dw_jobHistories';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
