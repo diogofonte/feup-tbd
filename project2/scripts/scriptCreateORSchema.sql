@@ -141,20 +141,20 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
 CREATE TYPE location_departments_tab_t AS TABLE OF department_t;
 ALTER TYPE location_t ADD ATTRIBUTE location_departments location_departments_tab_t CASCADE;
 
-CREATE TABLE dw_locations OF location_t (
+CREATE TABLE dw_locations of location_t(
     location_id PRIMARY KEY,
-    street_address VARCHAR2(40) NOT NULL,
-    postal_code VARCHAR2(12) NOT NULL,
-    city VARCHAR2(30) NOT NULL,
-    state_province VARCHAR2(25) NOT NULL,
-    country REF country_t NOT NULL
+    street_address NOT NULL,
+    postal_code NOT NULL,
+    city NOT NULL,
+    state_province NOT NULL,
+    country NOT NULL
 ) NESTED TABLE location_departments STORE AS location_departments_tab;
 
 
 -- Country table
 
 -- nested table to have list of locations in each country
-CREATE TYPE country_locations_tab_t AS TABLE OF location_t;
+CREATE TYPE country_locations_tab_t AS TABLE OFOF location_t;
 ALTER TYPE country_t ADD ATTRIBUTE country_locations country_locations_tab_t CASCADE;
 
 CREATE TABLE dw_countries of country_t(
