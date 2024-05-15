@@ -44,7 +44,7 @@ CREATE TYPE employee_t AS OBJECT (
     hire_date DATE,
     salary NUMBER(8,2),
     commision_pct NUMBER(2,2),
-    job REF job_t
+    job REF job_t,
     department REF department_t
 ); -- add atribute for direct manager after employee_t creation
 
@@ -59,6 +59,12 @@ ALTER TYPE department_t ADD ATTRIBUTE manager REF employee_t CASCADE;
 -- nested table to have list of employees in each department
 CREATE TYPE department_employees_tab_t AS TABLE OF employee_t;
 ALTER TYPE department_t ADD ATTRIBUTE department_employees department_employees_tab_t CASCADE;
+
+CREATE TYPE jobHistory_t AS OBJECT (
+    employee employee_t,
+    start_date DATE,
+    end_date DATE
+);
 
 -- nested table to have list of Job Histories in each department
 CREATE TYPE department_jobHistories_tab_t AS TABLE OF jobHistory_t;
@@ -114,11 +120,7 @@ CREATE TABLE dw_jobs OF job_t(
 
 ------------------------------------
 
-CREATE TYPE jobHistory_t AS OBJECT (
-    employee employee_t,
-    start_date DATE,
-    end_date DATE
-);
+
 ALTER TYPE jobHistory_t ADD ATTRIBUTE job REF job_t CASCADE;
 ALTER TYPE jobHistory_t ADD ATTRIBUTE department REF department_t CASCADE;
 
@@ -139,13 +141,13 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
 CREATE TYPE location_departments_tab_t AS TABLE OF department_t;
 ALTER TYPE location_t ADD ATTRIBUTE location_departments location_departments_tab_t CASCADE;
 
-CREATE TABLE dw_locations of location_t(
+CREATE TABLE dw_locations OF location_t (
     location_id PRIMARY KEY,
-    street_address NOT NULL,
-    postal_code NOT NULL,
-    city NOT NULL,
-    state_province NOT NULL,
-    country NOT NULL
+    street_address VARCHAR2(40) NOT NULL,
+    postal_code VARCHAR2(12) NOT NULL,
+    city VARCHAR2(30) NOT NULL,
+    state_province VARCHAR2(25) NOT NULL,
+    country REF country_t NOT NULL
 ) NESTED TABLE location_departments STORE AS location_departments_tab;
 
 
