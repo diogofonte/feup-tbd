@@ -83,7 +83,8 @@ CREATE TABLE dw_departments OF department_t(
 
 -- nested table to have list of job histories for each employee
 CREATE TYPE employee_jobHistories_tab_t AS TABLE OF jobHistory_t;
-ALTER TYPE employee_t ADD ATTRIBUTE employee_jobHistories employee_jobHistories_tab_t CASCADE;
+-- Can't create the following table since it creates a mutually-dependent cycle
+--ALTER TYPE employee_t ADD ATTRIBUTE employee_jobHistories employee_jobHistories_tab_t CASCADE;
 
 CREATE TABLE dw_employees OF employee_t(
     employee_id PRIMARY KEY,
@@ -97,8 +98,8 @@ CREATE TABLE dw_employees OF employee_t(
     job NOT NULL,
     department NOT NULL,
     manager NOT NULL
-) NESTED TABLE employee_jobHistories STORE AS employee_jobHistories_tab;
-
+);-- NESTED TABLE employee_jobHistories STORE AS employee_jobHistories_tab; -- 
+-- Removed nested table because of problem referenced above
 
 -- Job table
 
@@ -129,7 +130,7 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
     job NOT NULL,
     department NOT NULL,
     start_date NOT NULL,
-    end_date NOT NULL
+    end_date NOT NULL,
     PRIMARY KEY(employee, job, department, start_date)
 );
 
@@ -138,8 +139,8 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
 -- Location table
 
 -- nested table to have list of departments in each location
-CREATE TYPE location_departments_tab_t AS TABLE OF department_t;
-ALTER TYPE location_t ADD ATTRIBUTE location_departments location_departments_tab_t CASCADE;
+--CREATE TYPE location_departments_tab_t AS TABLE OF department_t;
+--ALTER TYPE location_t ADD ATTRIBUTE location_departments location_departments_tab_t CASCADE;
 
 CREATE TABLE dw_locations of location_t(
     location_id PRIMARY KEY,
@@ -148,29 +149,29 @@ CREATE TABLE dw_locations of location_t(
     city NOT NULL,
     state_province NOT NULL,
     country NOT NULL
-) NESTED TABLE location_departments STORE AS location_departments_tab;
+);-- NESTED TABLE location_departments STORE AS location_departments_tab;
 
 
 -- Country table
 
 -- nested table to have list of locations in each country
-CREATE TYPE country_locations_tab_t AS TABLE OFOF location_t;
-ALTER TYPE country_t ADD ATTRIBUTE country_locations country_locations_tab_t CASCADE;
+--CREATE TYPE country_locations_tab_t AS TABLE OF location_t;
+--ALTER TYPE country_t ADD ATTRIBUTE country_locations country_locations_tab_t CASCADE;
 
 CREATE TABLE dw_countries of country_t(
     country_id PRIMARY KEY,
     country_name NOT NULL,
     region NOT NULL
-) NESTED TABLE country_locations STORE AS country_locations_tab;
+); --NESTED TABLE country_locations STORE AS country_locations_tab;
 
 
 -- Region table
 
 -- nested table to have list of countries in each region
-CREATE TYPE region_countries_tab_t AS TABLE OF country_t;
-ALTER TYPE region_t ADD ATTRIBUTE region_countries region_countries_tab_t CASCADE;
+--CREATE TYPE region_countries_tab_t AS TABLE OF country_t;
+--ALTER TYPE region_t ADD ATTRIBUTE region_countries region_countries_tab_t CASCADE;
 
 CREATE TABLE dw_regions of region_t(
     region_id PRIMARY KEY,
     region_name NOT NULL
-) NESTED TABLE region_countries STORE AS region_countries_tab;
+); --NESTED TABLE region_countries STORE AS region_countries_tab;
