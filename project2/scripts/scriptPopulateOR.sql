@@ -23,3 +23,59 @@ SELECT
     (SELECT REF(c) FROM dw_countries c WHERE c.country_id = l.country_id) 
 FROM
     dbo_locations l;
+
+
+--Populate dw jobs
+INSERT INTO dw_jobs (job_id, job_title, min_salary, max_salary)
+SELECT
+    j.job_id,
+    j.job_title,
+    j.min_salary,
+    j.max_salary
+FROM 
+    dbo_jobs j;
+-- missing nested tables
+
+
+
+--Populate dw departments
+INSERT INTO dw_departments (department_id, department_name, location)
+SELECT
+    d.department_id,
+    d.department_name,
+    (SELECT REF(l) FROM dw_locations l WHERE l.location_id = d.location_id)
+FROM
+   dbo_departments d;
+--missing nested tables and manager, needs employee creation;
+
+
+
+--Populate dw employees
+INSERT INTO dw_employees(employee_id, first_name, last_name, email, phone_number, hire_date, salary, commission_pct, job, department)
+SELECT
+    e.employee_id,
+    e.first_name,
+    e.last_name,
+    e.email,
+    e.phone_number,
+    e.hire_date,
+    e.salary,
+    e.commission_pct,
+    (SELECT REF(j) FROM dw_jobs j WHERE j.job_id = e.job_id),
+    (SELECT REF(d) FROM dw_departments d WHERE d.department_id = e.department_id)
+FROM
+    dbo_employees e;
+--missing manager;
+
+
+
+
+INSERT INTO dw_jobhistories (employee, start_date, end_date, job, department)
+SELECT
+    (SELECT REF(e) FROM dw_employees e WHERE e.employee_id = h.employee_id),
+    h.start_date,
+    h.end_date,
+    (SELECT REF(j) FROM dw_jobs j WHERE j.job_id = h.job_id),
+    (SELECT REF(d) FROM dw_departments d WHERE d.department_id = h.department_id)
+FROM 
+   dbo_job_history h;

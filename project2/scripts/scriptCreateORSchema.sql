@@ -43,7 +43,7 @@ CREATE TYPE employee_t AS OBJECT (
     phone_number VARCHAR2(20),
     hire_date DATE,
     salary NUMBER(8,2),
-    commision_pct NUMBER(2,2),
+    commission_pct NUMBER(2,2),
     job REF job_t,
     department REF department_t
 ); -- add atribute for direct manager after employee_t creation
@@ -61,7 +61,7 @@ CREATE TYPE department_employees_tab_t AS TABLE OF employee_t;
 ALTER TYPE department_t ADD ATTRIBUTE department_employees department_employees_tab_t CASCADE;
 
 CREATE TYPE jobHistory_t AS OBJECT (
-    employee employee_t,
+    employee REF employee_t,
     start_date DATE,
     end_date DATE
 );
@@ -73,8 +73,8 @@ ALTER TYPE department_t ADD ATTRIBUTE department_jobHistories department_jobHist
 CREATE TABLE dw_departments OF department_t(
     department_id PRIMARY KEY,
     department_name NOT NULL,
-    location NOT NULL,
-    manager NOT NULL
+    location NULL,
+    manager NULL
 ) NESTED TABLE department_employees STORE AS department_employees_tab
     NESTED TABLE department_jobHistories STORE AS department_jobHistories_tab;
 
@@ -82,22 +82,22 @@ CREATE TABLE dw_departments OF department_t(
 -- Employee table
 
 -- nested table to have list of job histories for each employee
-CREATE TYPE employee_jobHistories_tab_t AS TABLE OF jobHistory_t;
+--CREATE TYPE employee_jobHistories_tab_t AS TABLE OF jobHistory_t;
 -- Can't create the following table since it creates a mutually-dependent cycle
 --ALTER TYPE employee_t ADD ATTRIBUTE employee_jobHistories employee_jobHistories_tab_t CASCADE;
 
 CREATE TABLE dw_employees OF employee_t(
     employee_id PRIMARY KEY,
-    first_name NOT NULL,
-    last_name NOT NULL,
-    email NOT NULL,
-    phone_number NOT NULL,
-    hire_date NOT NULL,
-    salary NOT NULL,
-    commision_pct NOT NULL,
-    job NOT NULL,
-    department NOT NULL,
-    manager NOT NULL
+    first_name NULL,
+    last_name NULL,
+    email NULL,
+    phone_number NULL,
+    hire_date NULL,
+    salary NULL,
+    commission_pct NULL,
+    job NULL,
+    department NULL,
+    manager NULL
 );-- NESTED TABLE employee_jobHistories STORE AS employee_jobHistories_tab; -- 
 -- Removed nested table because of problem referenced above
 
@@ -126,21 +126,17 @@ ALTER TYPE jobHistory_t ADD ATTRIBUTE job REF job_t CASCADE;
 ALTER TYPE jobHistory_t ADD ATTRIBUTE department REF department_t CASCADE;
 
 CREATE TABLE dw_jobHistories OF jobHistory_t(
-    employee NOT NULL,
-    job NOT NULL,
-    department NOT NULL,
-    start_date NOT NULL,
-    end_date NOT NULL
+    employee NULL,
+    job NULL,
+    department NULL,
+    start_date NULL,
+    end_date NULL
     --PRIMARY KEY(employee, job, department, start_date)
 );
 
 ----------------------------------
 
 -- Location table
-
--- nested table to have list of departments in each location
---CREATE TYPE location_departments_tab_t AS TABLE OF department_t;
---ALTER TYPE location_t ADD ATTRIBUTE location_departments location_departments_tab_t CASCADE;
 
 CREATE TABLE dw_locations of location_t(
     location_id PRIMARY KEY,
@@ -149,29 +145,21 @@ CREATE TABLE dw_locations of location_t(
     city NULL,
     state_province NULL,
     country NULL
-);-- NESTED TABLE location_departments STORE AS location_departments_tab;
+);
 
 
 -- Country table
-
--- nested table to have list of locations in each country
---CREATE TYPE country_locations_tab_t AS TABLE OF location_t;
---ALTER TYPE country_t ADD ATTRIBUTE country_locations country_locations_tab_t CASCADE;
 
 CREATE TABLE dw_countries of country_t(
     country_id PRIMARY KEY,
     country_name NULL,
     region NULL
-); --NESTED TABLE country_locations STORE AS country_locations_tab;
+); 
 
 
 -- Region table
 
--- nested table to have list of countries in each region
---CREATE TYPE region_countries_tab_t AS TABLE OF country_t;
---ALTER TYPE region_t ADD ATTRIBUTE region_countries region_countries_tab_t CASCADE;
-
 CREATE TABLE dw_regions of region_t(
     region_id PRIMARY KEY,
     region_name NULL
-); --NESTED TABLE region_countries STORE AS region_countries_tab;
+);
