@@ -130,8 +130,8 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
     job NOT NULL,
     department NOT NULL,
     start_date NOT NULL,
-    end_date NOT NULL,
-    PRIMARY KEY(employee, job, department, start_date)
+    end_date NOT NULL
+    --PRIMARY KEY(employee, job, department, start_date)
 );
 
 ----------------------------------
@@ -144,11 +144,11 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
 
 CREATE TABLE dw_locations of location_t(
     location_id PRIMARY KEY,
-    street_address NOT NULL,
-    postal_code NOT NULL,
-    city NOT NULL,
-    state_province NOT NULL,
-    country NOT NULL
+    street_address NULL,
+    postal_code NULL,
+    city NULL,
+    state_province NULL,
+    country NULL
 );-- NESTED TABLE location_departments STORE AS location_departments_tab;
 
 
@@ -160,8 +160,8 @@ CREATE TABLE dw_locations of location_t(
 
 CREATE TABLE dw_countries of country_t(
     country_id PRIMARY KEY,
-    country_name NOT NULL,
-    region NOT NULL
+    country_name NULL,
+    region NULL
 ); --NESTED TABLE country_locations STORE AS country_locations_tab;
 
 
@@ -173,5 +173,5 @@ CREATE TABLE dw_countries of country_t(
 
 CREATE TABLE dw_regions of region_t(
     region_id PRIMARY KEY,
-    region_name NOT NULL
+    region_name NULL
 ); --NESTED TABLE region_countries STORE AS region_countries_tab;
