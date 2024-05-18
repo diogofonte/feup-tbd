@@ -46,7 +46,7 @@ SELECT
     (SELECT REF(l) FROM dw_locations l WHERE l.location_id = d.location_id)
 FROM
    dbo_departments d;
---missing nested tables and manager, needs employee creation;
+--missing nested table, needs employee creation;
 
 
 
@@ -65,11 +65,24 @@ SELECT
     (SELECT REF(d) FROM dw_departments d WHERE d.department_id = e.department_id)
 FROM
     dbo_employees e;
---missing manager;
+--missing nested table;
+
+
+-- inserts manager into employee
+UPDATE dw_employees de
+    SET manager = ( SELECT REF(m) FROM dw_employees m WHERE m.employee_id = 
+    ( SELECT e.manager_id FROM dbo_employees e WHERE e.employee_id = de.employee_id));
+
+-- inserts manager into department
+UPDATE dw_departments de
+    SET manager = (SELECT REF (e) FROM dw_employees e WHERE e.employee_id = 
+    (SELECT b.manager_id FROM dbo_departments b WHERE b.department_id = de.department_id));
 
 
 
 
+
+--Populate dw job histories
 INSERT INTO dw_jobhistories (employee, start_date, end_date, job, department)
 SELECT
     (SELECT REF(e) FROM dw_employees e WHERE e.employee_id = h.employee_id),
@@ -79,3 +92,35 @@ SELECT
     (SELECT REF(d) FROM dw_departments d WHERE d.department_id = h.department_id)
 FROM 
    dbo_job_history h;
+
+
+
+--Nested table job_employees for dw jobs
+UPDATE dw_jobs j
+SET j.job_employees = CAST(MULTISET(
+    SELECT REF(e)
+    FROM dw_employees e
+    WHERE REF(j) = e.job) AS job_employees_tab_t);
+
+--Nested table job histories for dw jobs
+UPDATE dw_jobs j
+SET j.job_jobHistories = CAST(MULTISET(
+    SELECT REF(h)
+    FROM dw_jobHistories h
+    WHERE REF(j) = h.job) AS job_jobHistories_tab_t);
+
+
+--Neste table for job histories for de employees
+UPDATE dw_employees e
+SET e.employee_jobHistories = CAST(MULTISET(
+    SELECT REF(h)
+    FROM dw_jobHistories h
+    WHERE REF(e) = h.employee) AS employee_jobHistories_tab_t);
+
+
+--Nested table department_employees for dw departments
+UPDATE dw_departments d
+SET d.department_employees = CAST(MULTISET(
+    SELECT REF(e)
+    FROM dw_employees e
+    WHERE REF(d) = e.department) AS department_employees_tab_t);

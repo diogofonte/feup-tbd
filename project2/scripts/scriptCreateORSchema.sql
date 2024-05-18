@@ -57,7 +57,7 @@ ALTER TYPE department_t ADD ATTRIBUTE manager REF employee_t CASCADE;
 -- Department table
 
 -- nested table to have list of employees in each department
-CREATE TYPE department_employees_tab_t AS TABLE OF employee_t;
+CREATE TYPE department_employees_tab_t AS TABLE OF REF employee_t;
 ALTER TYPE department_t ADD ATTRIBUTE department_employees department_employees_tab_t CASCADE;
 
 CREATE TYPE jobHistory_t AS OBJECT (
@@ -66,25 +66,20 @@ CREATE TYPE jobHistory_t AS OBJECT (
     end_date DATE
 );
 
--- nested table to have list of Job Histories in each department
-CREATE TYPE department_jobHistories_tab_t AS TABLE OF jobHistory_t;
-ALTER TYPE department_t ADD ATTRIBUTE department_jobHistories department_jobHistories_tab_t CASCADE;
 
 CREATE TABLE dw_departments OF department_t(
     department_id PRIMARY KEY,
     department_name NOT NULL,
     location NULL,
     manager NULL
-) NESTED TABLE department_employees STORE AS department_employees_tab
-    NESTED TABLE department_jobHistories STORE AS department_jobHistories_tab;
+) NESTED TABLE department_employees STORE AS department_employees_tab;
 
 
 -- Employee table
 
 -- nested table to have list of job histories for each employee
---CREATE TYPE employee_jobHistories_tab_t AS TABLE OF jobHistory_t;
--- Can't create the following table since it creates a mutually-dependent cycle
---ALTER TYPE employee_t ADD ATTRIBUTE employee_jobHistories employee_jobHistories_tab_t CASCADE;
+CREATE TYPE employee_jobHistories_tab_t AS TABLE OF REF jobHistory_t;
+ALTER TYPE employee_t ADD ATTRIBUTE employee_jobHistories employee_jobHistories_tab_t CASCADE;
 
 CREATE TABLE dw_employees OF employee_t(
     employee_id PRIMARY KEY,
@@ -98,17 +93,16 @@ CREATE TABLE dw_employees OF employee_t(
     job NULL,
     department NULL,
     manager NULL
-);-- NESTED TABLE employee_jobHistories STORE AS employee_jobHistories_tab; -- 
--- Removed nested table because of problem referenced above
+) NESTED TABLE employee_jobHistories STORE AS employee_jobHistories_tab; 
 
 -- Job table
 
 -- nested table to have list of employees in each job
-CREATE TYPE job_employees_tab_t AS TABLE OF employee_t;
+CREATE TYPE job_employees_tab_t AS TABLE OF REF employee_t;
 ALTER TYPE job_t ADD ATTRIBUTE job_employees job_employees_tab_t CASCADE;
 
 -- nested table to have list of Job Histories in each job
-CREATE TYPE job_jobHistories_tab_t AS TABLE OF jobHistory_t;
+CREATE TYPE job_jobHistories_tab_t AS TABLE OF REF jobHistory_t;
 ALTER TYPE job_t ADD ATTRIBUTE job_jobHistories job_jobHistories_tab_t CASCADE;
 
 CREATE TABLE dw_jobs OF job_t(
@@ -131,7 +125,6 @@ CREATE TABLE dw_jobHistories OF jobHistory_t(
     department NULL,
     start_date NULL,
     end_date NULL
-    --PRIMARY KEY(employee, job, department, start_date)
 );
 
 ----------------------------------
