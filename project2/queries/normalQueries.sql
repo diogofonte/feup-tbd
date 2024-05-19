@@ -22,9 +22,10 @@ GROUP BY department_name;
 
 --d
 
-SELECT first_name, last_name, (end_date - start_date) as JobDuration FROM 
+SELECT first_name, last_name, SUM(end_date - start_date) as JobDuration FROM 
 DBO_EMPLOYEES
 JOIN DBO_JOB_HISTORY on DBO_JOB_HISTORY.employee_id = DBO_EMPLOYEES.employee_id
+GROUP BY first_name, last_name
 ORDER BY JobDuration DESC;
 
 --e
